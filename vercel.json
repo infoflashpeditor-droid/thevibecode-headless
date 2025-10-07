@@ -3,13 +3,6 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "installCommand": "npm install",
-  "env": {
-    "NEXT_PUBLIC_WORDPRESS_API_URL": "@wordpress_api_url",
-    "WORDPRESS_SITE_URL": "@wordpress_site_url",
-    "NEXT_PUBLIC_SITE_NAME": "@site_name",
-    "NEXT_PUBLIC_SITE_DESCRIPTION": "@site_description",
-    "NEXT_PUBLIC_SITE_URL": "@site_url"
-  },
   "functions": {
     "app/**/*.{js,ts,jsx,tsx}": {
       "maxDuration": 30
