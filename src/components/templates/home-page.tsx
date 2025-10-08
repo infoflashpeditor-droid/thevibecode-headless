@@ -26,27 +26,27 @@ export function HomePageTemplate({
       <Navigation />
       
       <main className="flex-1">
-        <HeroSection className="bg-gradient-to-br from-background via-accent/20 to-background" />
+        <HeroSection />
 
         <PostGrid
           posts={featuredPosts}
           title="Featured Posts"
-          description="Handpicked articles that showcase the best of our content"
+          description="Latest articles from our blog"
           variant="featured"
           columns="3"
           loading={loading}
-          className="py-16 bg-accent/30"
+          className="py-16"
         />
 
         <PostGrid
           posts={recentPosts}
           title="Recent Posts"
-          description="The latest articles from our blog"
+          description="More articles you might enjoy"
           variant="default"
           columns="3"
           loading={loading}
           showLoadMore={true}
-          className="py-16"
+          className="py-16 bg-muted/30"
         />
       </main>
 

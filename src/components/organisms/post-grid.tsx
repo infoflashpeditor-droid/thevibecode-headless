@@ -1,13 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
-
 import { PostCard } from "@/components/molecules/post-card";
 import { PostCardSkeleton } from "@/components/molecules/post-card-skeleton";
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from "@/components/ui/empty";
-import { TypographyH2, TypographyP } from "@/components/atoms/typography";
 import { WordPressPost } from "@/types/wordpress";
 import { cn } from "@/lib/utils";
 
@@ -42,26 +39,6 @@ export function PostGrid({
     "4": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
-
   if (loading) {
     return (
       <section className={cn("w-full py-8", className)}>
@@ -69,8 +46,8 @@ export function PostGrid({
           <div className="space-y-8">
             {title && (
               <div className="text-center space-y-2">
-                <PostCardSkeleton />
-                <PostCardSkeleton />
+                <div className="h-8 bg-muted animate-pulse rounded w-48 mx-auto" />
+                <div className="h-4 bg-muted animate-pulse rounded w-96 mx-auto" />
               </div>
             )}
             
@@ -122,50 +99,34 @@ export function PostGrid({
       <div className="container">
         <div className="space-y-8">
           {(title || description) && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center space-y-2"
-            >
+            <div className="text-center space-y-2">
               {title && (
-                <TypographyH2 className="text-3xl font-bold tracking-tight">
+                <h2 className="text-3xl font-bold tracking-tight">
                   {title}
-                </TypographyH2>
+                </h2>
               )}
               {description && (
-                <TypographyP className="text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-muted-foreground max-w-2xl mx-auto">
                   {description}
-                </TypographyP>
+                </p>
               )}
-            </motion.div>
+            </div>
           )}
           
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className={cn("grid gap-6", gridVariants[columns])}
-          >
+          <div className={cn("grid gap-6", gridVariants[columns])}>
             {posts.map((post, index) => (
-              <motion.div key={post.id} variants={itemVariants}>
-                <PostCard
-                  post={post}
-                  variant={index === 0 && variant === "featured" ? "featured" : variant}
-                  showAuthor={variant !== "compact"}
-                  showReadMore={variant !== "compact"}
-                />
-              </motion.div>
+              <PostCard
+                key={post.id}
+                post={post}
+                variant={index === 0 && variant === "featured" ? "featured" : variant}
+                showAuthor={variant !== "compact"}
+                showReadMore={variant !== "compact"}
+              />
             ))}
-          </motion.div>
+          </div>
 
           {showLoadMore && onLoadMore && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-center"
-            >
+            <div className="text-center">
               <Button
                 onClick={onLoadMore}
                 disabled={loadMoreLoading}
@@ -182,7 +143,7 @@ export function PostGrid({
                   "Load More"
                 )}
               </Button>
-            </motion.div>
+            </div>
           )}
         </div>
       </div>
